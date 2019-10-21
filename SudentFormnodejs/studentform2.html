@@ -1,0 +1,101 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student Details</title>
+</head>
+
+<body>
+    <div id="details">
+
+    </div>
+
+</body>
+
+</html>
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            stud_array = JSON.parse(this.responseText);
+            console.log(stud_array.length);
+            console.log(stud_array);
+           
+            var stud_table = document.createElement('TABLE')
+           
+
+            stud_array.forEach(element => {
+
+              // for(i=0;i<stud_array.length;i++){
+                var trow = document.createElement("TR");
+               // for(j=0;j<element.length;j++){
+                    var tcol1 = document.createElement('TD');
+                    var tdata = document.createTextNode(element.stud_name);
+                    var tcol2 = document.createElement('TD');
+                    var tgender = document.createTextNode(element.gender);
+                    var tcol3 = document.createElement('TD');
+                    var temail = document.createTextNode(element.email);
+
+                    var tcol4=document.createElement('INPUT');
+                    tcol4.setAttribute("type","BUTTON");
+                    tcol4.setAttribute("id",element._id);
+                   
+                    tcol4.setAttribute("value","Edit");
+                    tcol4.setAttribute("height","100px");
+                    tcol4.setAttribute("width","200px");
+                    tcol4.setAttribute("onclick", "edit_detail(this.id)"); 
+
+
+                    var del_btn=document.createElement('INPUT');
+                    del_btn.setAttribute("type","BUTTON");
+                    del_btn.setAttribute("id",element._id);
+                   
+                    del_btn.setAttribute("value","Delete");
+                    del_btn.setAttribute("height","100px");
+                    del_btn.setAttribute("width","200px");
+                    del_btn.setAttribute("onclick", "delete_detail(this.id)"); 
+
+
+                    tcol1.appendChild(tdata);
+                    trow.appendChild(tcol1);
+                    tcol2.appendChild(tgender);
+                    trow.appendChild(tcol2);
+                    tcol3.appendChild(temail);
+                    trow.appendChild(tcol3);
+                    trow.appendChild(tcol4);
+                    trow.appendChild(del_btn);
+                //}
+                stud_table.appendChild(trow);
+                document.getElementById('details').appendChild(stud_table);
+            //   }
+                // document.getElementById("details").innerHTML += element.stud_name;
+                // document.getElementById("details").innerHTML += element.gender + "<br>";
+            });
+          
+           
+        };    
+    }
+    xhttp.open("GET", "http://localhost:3000/getStudentDetails", true);
+    xhttp.setRequestHeader('Content-Type', 'application/JSON;charset=UTF-8');
+    xhttp.send();
+ 
+    function edit_detail(id){
+        location.replace('./editstudent.html?id='+id);   
+               
+     }
+
+     function delete_detail(id){
+         var http=new XMLHttpRequest();
+         http.onreadystatechange = ()=>{
+            if(this.readyState==4 && this.status==200){
+                alert('Deleted Successfully');
+            }
+         }
+         http.open("DELETE","http://localhost:3000/deleteStudent/"+id,true);
+         http.send();
+     }
+
+  
+    </script>

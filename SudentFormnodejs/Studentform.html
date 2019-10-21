@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+   
+        <form onsubmit="postData(); return false;">
+
+            Student Name <input type="text" id="sname" required><br>
+            Gender <input type="text" id="sgender" required><br>
+            Email <input type="text" id="semail" required><br>
+            <!-- Phone <input type="text" id="sphone" required><br>
+            Country<select name="country" id="country">
+                <option value="India">India</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="SriLanka">SriLanka</option>
+            </select><br>
+            State<select name="state" id="state">
+                <option value="TamilNadu">TamilNadu</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Andhra Pradesh">Andhra Pradhesh</option>
+            </select><br>
+            City<select name="city" id="city">
+                <option value="Chennai">Chennai</option>
+                <option value="Coimbatore">Coimbatore</option>
+                <option value="Madurai">Madurai</option>
+            </select><br>
+            Previous School <input type="text" id="previous_school" required><br>
+            Percentage <input type="text" id="spercent" required><br>
+            Maths <input type="text" id="smaths" required><br>
+            Physics <input type="text" id="sphysics" required><br>
+            Chemistry <input type="text" id="schemistry" required><br>
+            Computer Science <input type="text" id="scomputer" required><br> -->
+
+            <input type="submit" value="Regis details">
+
+
+
+        </form>
+
+   
+</body>
+
+</html>
+<script>
+    function postData() {
+        console.log('hii');
+        var data = {
+            stud_name: document.getElementById('sname').value,
+            gender: document.getElementById('sgender').value,
+            email: document.getElementById('semail').value
+        //    phone: document.getElementById('sphone').value,
+        //     country: document.getElementById('country').value,
+        //     state: document.getElementById('state').value,
+        //     city: document.getElementById('city').value,
+        //     previous_school: document.getElementById('previous_school').value,
+        //     percentage: document.getElementById('spercent').value,
+        //     maths: document.getElementById('smaths').value,
+        //     physics: document.getElementById('sphysics').value,
+        //     chemistry: document.getElementById('schemistry').value,
+        //     computer_science: document.getElementById('scomputer').value
+
+        }
+        console.log(data);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                alert('success');
+               location.replace('D:/ZenClass/Node%20js/studentform2.html');
+            }
+           
+        };
+        xhttp.open("POST", "http://localhost:3000/register", true);
+        xhttp.setRequestHeader('Content-Type', 'application/JSON;charset=UTF-8');
+        xhttp.send(JSON.stringify(data));
+    }
+</script>
